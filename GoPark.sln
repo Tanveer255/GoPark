@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35506.116 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{42EA0EF1-2C41-48D6-B543-43DD7078E7BE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{8963BE85-9DEB-4492-8707-558379D02F25}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{B1BDAC0D-677F-4238-8EE5-4471CC9FB71E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoParkService", "GoParkService\GoParkService.csproj", "{DF1FEE8F-63A1-4D7E-8559-1A692056E787}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "gopark", "goPark\gopark.esproj", "{3FFC882B-DA4F-4113-B13F-C2E7067F2F7D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF1FEE8F-63A1-4D7E-8559-1A692056E787}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF1FEE8F-63A1-4D7E-8559-1A692056E787}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF1FEE8F-63A1-4D7E-8559-1A692056E787}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF1FEE8F-63A1-4D7E-8559-1A692056E787}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FFC882B-DA4F-4113-B13F-C2E7067F2F7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FFC882B-DA4F-4113-B13F-C2E7067F2F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FFC882B-DA4F-4113-B13F-C2E7067F2F7D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3FFC882B-DA4F-4113-B13F-C2E7067F2F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FFC882B-DA4F-4113-B13F-C2E7067F2F7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FFC882B-DA4F-4113-B13F-C2E7067F2F7D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8963BE85-9DEB-4492-8707-558379D02F25} = {42EA0EF1-2C41-48D6-B543-43DD7078E7BE}
+		{B1BDAC0D-677F-4238-8EE5-4471CC9FB71E} = {42EA0EF1-2C41-48D6-B543-43DD7078E7BE}
+		{DF1FEE8F-63A1-4D7E-8559-1A692056E787} = {8963BE85-9DEB-4492-8707-558379D02F25}
+		{3FFC882B-DA4F-4113-B13F-C2E7067F2F7D} = {B1BDAC0D-677F-4238-8EE5-4471CC9FB71E}
+	EndGlobalSection
+EndGlobal
