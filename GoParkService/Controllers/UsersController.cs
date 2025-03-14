@@ -3,6 +3,7 @@ using GoParkService.BLL.Services;
 using GoParkService.Entity.DTO;
 using GoParkService.Entity.Entity.Identity;
 using GoParkService.Repository;
+using GoParkService.Services;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,16 +17,16 @@ namespace GoParkService.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        //private readonly IJwtAuthenticationService _jwtAuthenticationService;
+        private readonly IJwtAuthenticationService _jwtAuthenticationService;
         private readonly IApplicationUserService _applicationUserService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public UsersController(/*IJwtAuthenticationService jwtAuthenticationService,*/
+        public UsersController(IJwtAuthenticationService jwtAuthenticationService,
             IApplicationUserService applicationUserService,
             IUnitOfWork unitOfWork
             )
         {
-           // _jwtAuthenticationService = jwtAuthenticationService;
+            _jwtAuthenticationService = jwtAuthenticationService;
             _applicationUserService = applicationUserService;
             _unitOfWork = unitOfWork;
         }
@@ -44,9 +45,8 @@ namespace GoParkService.Controllers
                 return Unauthorized(new { message = "Invalid credentials" });
             }
 
-            //var token = _jwtAuthenticationService.GenerateJwtToken(user.Email);
-            //return Ok(new { token, status = 200 });
-            return Ok();
+            var token = _jwtAuthenticationService.GenerateJwtToken(user.Email);
+            return Ok(new { token, status = 200 });
         }
 
         // POST api/<UserController>
@@ -76,10 +76,9 @@ namespace GoParkService.Controllers
            _unitOfWork.Commit(); // Assuming Commit is async
 
             // Generate JWT token
-            //var token = _jwtAuthenticationService.GenerateJwtToken(newUser.Email);
+            var token = _jwtAuthenticationService.GenerateJwtToken(newUser.Email);
 
-            //return Ok(new { token, status = 200 });
-             return Ok();
+            return Ok(new { token, status = 200 });
         }
         // GET api/<UserController>/5
         [HttpGet("{id}")]
