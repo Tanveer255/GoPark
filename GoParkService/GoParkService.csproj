@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entity\DTO\Request\" />
     <Folder Include="Shared\" />
   </ItemGroup>
 

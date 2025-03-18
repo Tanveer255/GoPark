@@ -1,4 +1,5 @@
 ﻿using GoParkService.Entity.Common.Model;
+using GoParkService.Entity.DTO.Request;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -8,8 +9,8 @@ using System.Text;
 namespace GoParkService.Services;
 public interface IJwtAuthenticationService
 {
-
-    public string GenerateJwtToken(string username);
+    public string GenerateJwtToken(GenerateTokenRequest request);
+    public Task<RefreshTokenRequest> RefreshTokenAsync(GenerateTokenRequest tokenRequest);
 }
 public class JwtAuthenticationService : IJwtAuthenticationService
 {
@@ -22,11 +23,11 @@ public class JwtAuthenticationService : IJwtAuthenticationService
         _configuration = configuration;
     }
 
-    public string GenerateJwtToken(string username)
+    public string GenerateJwtToken(GenerateTokenRequest request)
     {
         var claims = new[]
         {
-            new Claim(ClaimTypes.Name, username),
+            new Claim(ClaimTypes.Email, request.Email),
             // Add more claims if needed
         };
 
@@ -42,5 +43,23 @@ public class JwtAuthenticationService : IJwtAuthenticationService
         );
 
         return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+    public async Task<RefreshTokenRequest> RefreshTokenAsync(GenerateTokenRequest tokenRequest)
+    {
+        var claims = new List<Claim>
+     {
+         new Claim(ClaimTypes.Email, tokenRequest.Email),
+         new Claim(ClaimTypes.NameIdentifier, tokenRequest.UserId.ToString())
+     };
+
+        var newRefreshToken = GenerateJwtToken(tokenRequest);
+
+        var token = new RefreshTokenRequest
+        {
+            RefreshToken =  newRefreshToken,
+            RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenExpiryTime)
+        };
+
+        return token;
     }
 }

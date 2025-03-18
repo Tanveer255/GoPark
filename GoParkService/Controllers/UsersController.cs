@@ -1,6 +1,7 @@
 ﻿
 using GoParkService.BLL.Services;
 using GoParkService.Entity.DTO;
+using GoParkService.Entity.DTO.Request;
 using GoParkService.Entity.Entity.Identity;
 using GoParkService.Repository;
 using GoParkService.Services;
@@ -44,8 +45,13 @@ namespace GoParkService.Controllers
             {
                 return Unauthorized(new { message = "Invalid credentials" });
             }
+            var generatetokenrequest = new GenerateTokenRequest
+            {
+                Email = user.Email,
+                UserId = user.Id
+            };
 
-            var token = _jwtAuthenticationService.GenerateJwtToken(user.Email);
+            var token = _jwtAuthenticationService.GenerateJwtToken(generatetokenrequest);
             return Ok(new { token, status = 200 });
         }
 
@@ -76,7 +82,12 @@ namespace GoParkService.Controllers
            _unitOfWork.Commit(); // Assuming Commit is async
 
             // Generate JWT token
-            var token = _jwtAuthenticationService.GenerateJwtToken(newUser.Email);
+            var generatetokenrequest = new GenerateTokenRequest
+            {
+                Email = newUser.Email,
+                UserId = newUser.Id
+            };
+            var token = _jwtAuthenticationService.GenerateJwtToken(generatetokenrequest);
 
             return Ok(new { token, status = 200 });
         }
