@@ -1,5 +1,7 @@
 ﻿using GoParkService.BLL.Services;
 using GoParkService.Repository;
+using GoParkService.Services;
+
 //using JwtAuthentication.Service;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
@@ -12,6 +14,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
         services.AddTransient<IApplicationUserService, ApplicationUserService>();
         services.AddTransient<IApplicationUserRepository, ApplicationUserRepository>();
+        services.AddTransient<IJwtAuthenticationService, JwtAuthenticationService>();
         //services.AddSingleton<IJwtAuthenticationService, JwtAuthenticationService>();
         // Register Email Service
         services.AddScoped<IEmailService, EmailService>();
@@ -19,6 +22,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped(typeof(ICrudService<>), typeof(CrudService<>));
+
 
         return services;
     }

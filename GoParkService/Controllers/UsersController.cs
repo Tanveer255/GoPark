@@ -91,6 +91,29 @@ namespace GoParkService.Controllers
 
             return Ok(new { token, status = 200 });
         }
+        [HttpPost(nameof(RefreshToken))]
+        public async Task<ActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
+        {
+            var user = await _applicationUserService.GetSingle(u => u.RefreshToken == request.RefreshToken);
+
+            if (user == null)
+                return Unauthorized("Invalid refresh token.");
+
+            if (user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+                return Unauthorized("Refresh token has expired. Please log in again.");
+
+            var generateRefreshToken = new GenerateTokenRequest
+            {
+                Email = user.Email,
+                UserId = user.Id,
+               // TenantId = user.TenantId,
+            };
+
+            var result = await _applicationUserService.RefreshUserTokenAsync(generateRefreshToken);
+
+            return result.Succeeded() ? Ok(result) : BadRequest("Failed to generate a new access token.");
+        }
+
         // GET api/<UserController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ApplicationUser>> Get(Guid id)
