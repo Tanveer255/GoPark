@@ -4,6 +4,7 @@ using GoParkService.Entity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoParkService.Migrations
 {
     [DbContext(typeof(GoParkServiceDbContext))]
-    partial class GoParkServiceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250318061709_TenantId_added_in_applicationUser")]
+    partial class TenantId_added_in_applicationUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -15,6 +15,7 @@ public class ApplicationUser : IdentityUser<Guid>
     public byte[] ProfilePicture { get; set; } = new byte[0];
     public string RefreshToken { get; set; } = string.Empty;
     public DateTime RefreshTokenExpiryTime { get; set; }
+    public string TenantId { get; set; } = string.Empty;
 
 }
 
