@@ -1,4 +1,5 @@
-﻿using GoParkService.Entity.Entity.Identity;
+﻿using GoParkService.Entity.Entity;
+using GoParkService.Entity.Entity.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,8 @@ public class GoParkServiceDbContext : IdentityDbContext<ApplicationUser, Identit
         : base(options)
     {
     }
-
+    DbSet<Company> Companies { get; set; }
+    DbSet<Address> Addresses { get; set; }  
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -60,6 +62,12 @@ public class GoParkServiceDbContext : IdentityDbContext<ApplicationUser, Identit
             entity.HasKey(t => t.UserId);
             entity.ToTable("UserTokens");
         });
+        // Configure the relationship between Address and Company
+        builder.Entity<Address>()
+            .HasOne(a => a.Company) // Address has one Company
+            .WithMany(c => c.OtherAddresses) // Company has many Addresses
+            .HasForeignKey(a => a.CompanyId)
+            .IsRequired(false); // Make the foreign key optional if needed.
     }
 
 }
